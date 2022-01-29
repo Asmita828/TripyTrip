@@ -4,6 +4,11 @@ const path = require('path')
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
+app.use(express.urlencoded({ extended: true }))
+
+// var methodOverride = require('method-override')
+// app.use(methodOverride('_method'))
+
 const Campground = require('./models/campground')
 
 const mongoose = require('mongoose');
@@ -26,6 +31,16 @@ app.get('/campgrounds', async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campground/index', { campgrounds })
 })
+
+app.post('/campgrounds', async (req, res) => {
+    const campground = new Campground(req.body.campground);
+    await campground.save();
+    res.redirect(`campgrounds/${campground._id}`)
+})
+app.get('/campgrounds/new', (req, res) => {
+    res.render('campground/new')
+})
+
 app.get('/campgrounds/:id', async (req, res) => {
     //console.log(req.params)
     const campground = await Campground.findById(req.params.id);
