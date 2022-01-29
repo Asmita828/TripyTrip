@@ -22,8 +22,13 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp')
 app.get('/', (req, res) => {
     res.render('home')
 })
-app.get('/campground', async (req, res) => {
+app.get('/campgrounds', async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campground/index', { campgrounds })
+})
+app.get('/campgrounds/:id', async (req, res) => {
+    //console.log(req.params)
+    const campground = await Campground.findById(req.params.id);
+    res.render('campground/show', { campground })
 })
 
