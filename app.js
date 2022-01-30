@@ -60,3 +60,8 @@ app.get('/campgrounds/:id/edit', async (req, res) => {
     res.render('campground/edit', { campground })
 })
 
+app.delete('/campgrounds/:id', async (req, res) => {
+    const { id } = req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect('/campgrounds')
+})
