@@ -1,2 +1,2 @@
-var methodOverride = require('method-override')
-// app.use(methodOverride('_method'))
+const Campground = require('./models/campground')
+// const Review = require('./models/review');
