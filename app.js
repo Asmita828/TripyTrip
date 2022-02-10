@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const ejsMate = require('ejs-mate')
 const session = require('express-session')
+const flash = require('connect-flash');
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
@@ -44,9 +45,16 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig))
+app.use(flash());
 
 app.get('/', (req, res) => {
     res.render('home')
+})
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
 })
 
 app.use('/campgrounds', campgrounds)
