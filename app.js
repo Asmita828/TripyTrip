@@ -10,18 +10,13 @@ const { campgroundSchema, reviewSchema } = require('./schemas.js')
 
 const campgrounds = require('./routes/campground')
 const reviews = require('./routes/review')
-
-//const catchAsync = require('./utils/catchAsync')
 const ExpressError = require('./utils/ExpressError')
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
-
-// const Campground = require('./models/campground')
-// const Review = require('./models/review');
-
 
 const mongoose = require('mongoose');
 const { findByIdAndUpdate } = require('./models/campground');
