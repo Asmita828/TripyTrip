@@ -23,7 +23,12 @@ const seedDB = async () => {
             author: '6207ff64b4ec6c0d472587fd',
             location: `${cities[random].city},${cities[random].state}`,
             title: `${sample(places)} ${sample(descriptors)}`,
-            image: 'https://source.unsplash.com/collection/483251',
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645110609/YelpCamp/e3hnxbi1pzug8dj73ulb.png',
+                    filename: 'YelpCamp/e3hnxbi1pzug8dj73ulb',
+                }
+            ],
             description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi praesentium aspernatur ratione voluptatem natus nisi consequatur ullam! Dolores, voluptate. Similique, accusamus ipsa consectetur tenetur non dolores tempora necessitatibus molestiae sunt!',
             price: price
         })
