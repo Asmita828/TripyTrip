@@ -39,6 +39,7 @@ module.exports.showCampground = async (req, res,) => {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
     }
+    //console.log(campground)
     res.render('campground/show', { campground });
 }
 
@@ -65,7 +66,7 @@ module.exports.updateCampground = async (req, res) => {
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.images.push(...imgs);
     await campground.save();
-    console.log(campground.images)
+    //console.log(campground.images)
     if (deletedImages) {
         for (let filename of deletedImages) {
             await cloudinary.uploader.destroy(filename);

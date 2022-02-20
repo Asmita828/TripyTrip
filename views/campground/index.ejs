@@ -5,8 +5,12 @@
         <div class="card" mb-3>
             <div class="row">
                 <div class="col-md-4">
-                    <% console.log(campground.images) %>
+                    <% if(campground.images.length){ %>
                         <img class="img-fluid" src="<%= campground.images[0].url %> ">
+                        <% }else{ %>
+                            <img class="img-fluid"
+                                src="https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645378722/YelpCamp/evsmjyynwl4ipacaqset.png ">
+                            <% } %>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
