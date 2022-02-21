@@ -66,18 +66,19 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get('/', (req, res) => {
-    res.render('home')
-})
 
 app.use((req, res, next) => {
     //console.log(req.session)
+    //EVERY TEMPLATE WILL HAVE ACCESS TO res.locals
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
 app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes);
