@@ -1,6 +1,4 @@
 mapboxgl.accessToken = mapToken;
-// console.log(campground)
-campground = JSON.parse(campground);
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
