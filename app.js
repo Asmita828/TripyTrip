@@ -1,9 +1,6 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
-//console.log(process.env.CLOUDINARY_CLOUD_NAME)
-
-
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -13,6 +10,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
+const mongoSanitize = require('express-mongo-sanitize');
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
@@ -46,6 +44,8 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp')
         console.log(err);
     })
 
+
+app.use(mongoSanitize());   
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
     resave: false,
@@ -68,7 +68,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
-    //console.log(req.session)
+    //console.log(req.query)
     //EVERY TEMPLATE WILL HAVE ACCESS TO res.locals
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
