@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Asmita828/practice#readme",
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.13.2",
+    "body-parser": "^1.19.2",
     "cloudinary": "^1.28.1",
     "connect-flash": "^0.1.1",
     "dotenv": "^16.0.0",
@@ -36,6 +37,7 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
-    "sanitize-html": "^2.7.0"
+    "sanitize-html": "^2.7.0",
+    "stripe": "^8.204.0"
   }
 }

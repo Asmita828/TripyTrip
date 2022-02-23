@@ -7,10 +7,22 @@
             <div class="row">
                 <div class="col-md-4">
                     <% if(campground.images.length){ %>
-                        <img class="img-fluid" src="<%= campground.images[0].url %> ">
+                        <div class="container1">
+                            <img class="img-fluid image" src="<%= campground.images[0].url %>" style="width:100%">
+                            <div class="middle">
+                                <a class="text" href="/campgrounds/<%=campground._id%>">View</a>
+                            </div>
+                        </div>
                         <% }else{ %>
-                            <img class="img-fluid"
-                                src="https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645378722/YelpCamp/evsmjyynwl4ipacaqset.png ">
+                            <div class="container1">
+                                <img class="img-fluid image"
+                                    src="https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645378722/YelpCamp/evsmjyynwl4ipacaqset.png " style="width:100%">
+                                <div class="middle">
+                                    <div class="text">
+                                        <a href="/campgrounds/<%=campground._id%>">xxxx</a>
+                                    </div>
+                                </div>
+                            </div>
                             <% } %>
                 </div>
                 <div class="col-md-8">
@@ -19,7 +31,12 @@
                             <%= campground.title %>
                         </h5>
                         <p class="card-text">
-                            <%= campground.description %>
+                            <% if(campground.description.length>150){ %>
+                                <%= campground.description.substring(0,150) %>....
+                                <% } else{ %>  
+                                    <%= campground.description  %>
+                                    <% } %> 
+                            
                         </p>
                         <p class="card-text">
                             <small class="text-muted">
