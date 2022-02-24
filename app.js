@@ -11,13 +11,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize');
+const bodyPareser=require('body-parser');
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
-const Joi = require('joi')
-const { campgroundSchema, reviewSchema } = require('./schemas.js')
-
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground')
 const reviewRoutes = require('./routes/review')
@@ -31,7 +29,6 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
 const mongoose = require('mongoose');
-const { findByIdAndUpdate } = require('./models/campground');
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
     .then(() => {
         console.log("Connection created")
@@ -43,6 +40,12 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp')
         console.log("OOPs error found!!");
         console.log(err);
     })
+
+
+const PUBLISHABLE_KEY ='pk_test_51KWOKiSFLJZPP6NyspDoLNfCxCuFNrhCHmFBP0SA4Ug6DLoIMXPOrOglKcGqogism3HWRmu01ljLpXZGCxc1n0i700AksD09zk'
+const SECRET_KEY ='sk_test_51KWOKiSFLJZPP6NyGdtce0kekk7pdxwkOj1gPb6Iz9QgJL4uv5nLhbmbQ8DkxQFK63MZKIFwCsxG9fJ7054No3MK00eUFfF1iK'
+
+const stripe=require('stripe')(SECRET_KEY)
 
 
 app.use(mongoSanitize());   
@@ -81,6 +84,43 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home')
 })
+app.get('/register', function (req, res) {
+    res.render('payment', {
+        key: PUBLISHABLE_KEY
+    })
+})
+app.post('/payment', function (req, res) {
+
+    // Moreover you can take more details from user 
+    // like Address, Name, etc from form 
+    stripe.paymentIntents.create({
+        email: req.body.stripeEmail,
+        source: req.body.stripeToken,
+        name: 'Yelpcamp',
+        address: {
+            line1: 'TC 9/4 Old MES colony',
+            postal_code: '110092',
+            city: 'New Delhi',
+            state: 'Delhi',
+            country: 'India',
+        }
+    })
+        .then((customer) => {
+
+            return stripe.charges.create({
+                amount: 7000,    // Charing Rs 25 
+                description: 'Campground',
+                currency: 'USD',
+                customer: customer.id
+            });
+        })
+        .then((charge) => {
+            res.send("Success") // If no error occurs 
+        })
+        .catch((err) => {
+            res.send(err)    // If some error occurs 
+        });
+}) 
 app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes);
