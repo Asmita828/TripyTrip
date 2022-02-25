@@ -1,23 +1,28 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg py-3 purple">
     <div class="container-fluid ">
-        <a class="navbar-brand" href="/campgrounds">Yelpcamp</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        <!-- <a class="navbar-brand" href="/campgrounds">Yelpcamp</a> -->
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/campgrounds">Campgrounds</a>
-                <a class="nav-link" href="/campgrounds/new">Add New</a>
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </div>
+            <a> <img class="cropped" src="/images/navbarLogo.png" width="50" alt="Logo"
+                    class="d-inline-block align-middle mr-2"></a>
+                    <p class="name glow ">TripyTrip</p>
+                    
+            <!-- <div class="navbar-nav">
+                <p class="name nav-link">TripyTrip</p>
+            </div> -->
             <div class="navbar-nav ms-auto">
+                <a class="nav-link font" href="/">Home</a>
+                <a class="nav-link font" href="/campgrounds">Campgrounds</a>
+                <a class="nav-link font" href="/campgrounds/new">Add New</a>
+                <div class="v"></div>
                 <% if(!currentUser){ %>
-                    <a class="nav-link" href="/login">Login</a>
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link font" href="/login">Login</a>
+                    <a class="nav-link font" href="/register">Register</a>
                     <% } else{ %>
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link font" href="/logout">Logout</a>
                         <% } %>
             </div>
         </div>

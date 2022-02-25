@@ -1,0 +1,53 @@
+.purple{
+    background-color: rgb(43, 2, 69);
+    height: 90px;
+}
+.font{
+    color: white;
+    background-color:rgb(43, 2, 69);
+    font-size: x-large;
+    vertical-align: middle;
+}
+.font:hover{
+    text-decoration: underline;
+    color:rgb(254, 185,63);
+    transform: scale(1.026);
+}
+
+.name{
+    color: rgb(254, 185,63);
+    font-family: 'Courgette', cursive;
+    font-size: xx-large;
+    margin-top: 0.5cm;
+    /* margin-bottom: 0.1cm; */
+    text-shadow: 2cm;
+}
+
+.cropped {
+    width: 80px; /* width of container */
+    height: 80px; /* height of container */
+    object-fit: cover;
+}
+.v {
+  vertical-align: middle;
+  border-left: 2px solid rgb(124, 122, 119);
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.glow {
+  /* font-size: 80px;
+  color: #fff;
+  text-align: center; */
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #911a1ab6, 0 0 40px #18c94de5, 0 0 50px #b5df1d, 0 0 60px #8ee600, 0 0 70px #bce600;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ffc14d, 0 0 40px #eca012, 0 0 50px #df6412, 0 0 60px #dd4010, 0 0 70px #eb5f34, 0 0 80px #f3ff4d;
+  }
+}
