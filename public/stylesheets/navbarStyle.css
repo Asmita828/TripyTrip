@@ -19,7 +19,15 @@
     font-family: 'Courgette', cursive;
     font-size: xx-large;
     margin-top: 0.5cm;
-    /* margin-bottom: 0.1cm; */
+    text-decoration: none;
+    text-shadow: 2cm;
+}
+.name:hover{
+    color: rgb(254, 185,63);
+    font-family: 'Courgette', cursive;
+    font-size: xx-large;
+    margin-top: 0.5cm;
+    text-decoration: none;
     text-shadow: 2cm;
 }
 

@@ -29,7 +29,7 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/yelp-camp')
+mongoose.connect(process.env.MONGO_KEY)
     .then(() => {
         console.log("Connection created")
         app.listen(3000, () => {
@@ -84,7 +84,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home')
 })
-app.get('/register', function (req, res) {
+app.get('/payment', function (req, res) {
     res.render('payment', {
         key: PUBLISHABLE_KEY
     })

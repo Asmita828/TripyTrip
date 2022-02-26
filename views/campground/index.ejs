@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate')%>
     <div id="cluster-map"></div>
-    <h1>All Campgrounds!</h1>
+    <h1 class="camp">India Tour Packages</h1>
 
     <% for (let campground of campgrounds) {%>
         <div class="card mb-3">
@@ -8,15 +8,15 @@
                 <div class="col-md-4">
                     <% if(campground.images.length){ %>
                         <div class="container1">
-                            <img class="img-fluid image" src="<%= campground.images[0].url %>" style="width:100%">
+                            <img class="img-fluid image indeximage" src="<%= campground.images[0].url %>">
                             <div class="middle">
                                 <a class="text" href="/campgrounds/<%=campground._id%>">View</a>
                             </div>
                         </div>
                         <% }else{ %>
                             <div class="container1">
-                                <img class="img-fluid image"
-                                    src="https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645378722/YelpCamp/evsmjyynwl4ipacaqset.png " style="width:100%">
+                                <img class="img-fluid image indeximage"
+                                    src="https://res.cloudinary.com/university-institute-of-engineering-and-technology-punjab-university/image/upload/v1645378722/YelpCamp/evsmjyynwl4ipacaqset.png ">
                                 <div class="middle">
                                     <div class="text">
                                         <a href="/campgrounds/<%=campground._id%>">xxxx</a>
