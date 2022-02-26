@@ -12,6 +12,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize');
 const bodyPareser=require('body-parser');
+const MongoDBStore=require("connect-mongo");
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
@@ -48,8 +49,12 @@ const SECRET_KEY ='sk_test_51KWOKiSFLJZPP6NyGdtce0kekk7pdxwkOj1gPb6Iz9QgJL4uv5nL
 const stripe=require('stripe')(SECRET_KEY)
 
 
+
 app.use(mongoSanitize());   
 const sessionConfig = {
+    store: MongoDBStore.create({
+        mongoUrl: process.env.MONGO_KEY,
+    }),
     name:'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
