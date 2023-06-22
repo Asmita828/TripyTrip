@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const review = require('./review');
 const Schema = mongoose.Schema;
 
-const opts = { toJSON: { virtuals: true } };
+const opts = { toJSON: { virtuals: true } };/////////
 
 const ImageSchema = new Schema({
     url: String,
@@ -49,7 +49,7 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
     <p>${this.description.substring(0, 20)}...</p>`
 });
 
-CampgroundSchema.post('findOneAndDelete', async function (doc) {
+CampgroundSchema.post('findOneAndDelete', async function (doc) {//////////////////////////
     if (doc) {
         await review.deleteMany({
             _id: { $in: doc.reviews }

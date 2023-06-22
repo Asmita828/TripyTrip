@@ -13,11 +13,13 @@ const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize');
 const bodyPareser=require('body-parser');
 const MongoDBStore=require("connect-mongo");
+const serverless=require('serverless-http');
+const router=express.Router();
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user')
 const campgroundRoutes = require('./routes/campground')
 const reviewRoutes = require('./routes/review')
 
@@ -43,10 +45,10 @@ mongoose.connect(process.env.MONGO_KEY)
     })
 
 
-const PUBLISHABLE_KEY ='pk_test_51KWOKiSFLJZPP6NyspDoLNfCxCuFNrhCHmFBP0SA4Ug6DLoIMXPOrOglKcGqogism3HWRmu01ljLpXZGCxc1n0i700AksD09zk'
-const SECRET_KEY ='sk_test_51KWOKiSFLJZPP6NyGdtce0kekk7pdxwkOj1gPb6Iz9QgJL4uv5nLhbmbQ8DkxQFK63MZKIFwCsxG9fJ7054No3MK00eUFfF1iK'
+// const PUBLISHABLE_KEY ='pk_test_51KWOKiSFLJZPP6NyspDoLNfCxCuFNrhCHmFBP0SA4Ug6DLoIMXPOrOglKcGqogism3HWRmu01ljLpXZGCxc1n0i700AksD09zk'
+// const SECRET_KEY ='sk_test_51KWOKiSFLJZPP6NyGdtce0kekk7pdxwkOj1gPb6Iz9QgJL4uv5nLhbmbQ8DkxQFK63MZKIFwCsxG9fJ7054No3MK00eUFfF1iK'
 
-const stripe=require('stripe')(SECRET_KEY)
+// const stripe=require('stripe')(SECRET_KEY)
 
 
 
@@ -89,43 +91,43 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home')
 })
-app.get('/payment', function (req, res) {
-    res.render('payment', {
-        key: PUBLISHABLE_KEY
-    })
-})
-app.post('/payment', function (req, res) {
+// app.get('/payment', function (req, res) {
+//     res.render('payment', {
+//         key: PUBLISHABLE_KEY
+//     })
+// })
+// app.post('/payment', function (req, res) {
 
-    // Moreover you can take more details from user 
-    // like Address, Name, etc from form 
-    stripe.paymentIntents.create({
-        email: req.body.stripeEmail,
-        source: req.body.stripeToken,
-        name: 'Yelpcamp',
-        address: {
-            line1: 'TC 9/4 Old MES colony',
-            postal_code: '110092',
-            city: 'New Delhi',
-            state: 'Delhi',
-            country: 'India',
-        }
-    })
-        .then((customer) => {
+//     // Moreover you can take more details from user 
+//     // like Address, Name, etc from form 
+//     stripe.paymentIntents.create({
+//         email: req.body.stripeEmail,
+//         source: req.body.stripeToken,
+//         name: 'Yelpcamp',
+//         address: {
+//             line1: 'TC 9/4 Old MES colony',
+//             postal_code: '110092',
+//             city: 'New Delhi',
+//             state: 'Delhi',
+//             country: 'India',
+//         }
+//     })
+//         .then((customer) => {
 
-            return stripe.charges.create({
-                amount: 7000,    // Charing Rs 25 
-                description: 'Campground',
-                currency: 'USD',
-                customer: customer.id
-            });
-        })
-        .then((charge) => {
-            res.send("Success") // If no error occurs 
-        })
-        .catch((err) => {
-            res.send(err)    // If some error occurs 
-        });
-}) 
+//             return stripe.charges.create({
+//                 amount: 7000,    // Charing Rs 25 
+//                 description: 'Campground',
+//                 currency: 'USD',
+//                 customer: customer.id
+//             });
+//         })
+//         .then((charge) => {
+//             res.send("Success") // If no error occurs 
+//         })
+//         .catch((err) => {
+//             res.send(err)    // If some error occurs 
+//         });
+// }) 
 app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes);
@@ -141,3 +143,5 @@ app.use((err, req, res, next) => {
     }
     res.status(statusCode).render('error', { err });
 })
+app.use('/.netlify/functions/app',router)
+module.exports.handler=serverless(app);
